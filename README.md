@@ -15,3 +15,5 @@ The purpose of this project was to use different tree methods to create models f
 [Saturday](Saturday.html)  
 
 [Sunday](Sunday.html)
+
+The code used to generate the automation of this project is also available [here](Automated Reports.R)
