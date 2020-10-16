@@ -16,4 +16,6 @@ The purpose of this project was to use different tree methods to create models f
 
 [Sunday](Sunday.html)
 
-The code used to generate the automation of this project is also available [here](Automated Reports.R)
+The code used to generate the automation of this project is also available [here](Automated Report.md)
+
+Note the following packages are required to run these programs: caret, rattle, rpart, gbm, plyr, rmarkdown, tidyverse.
