@@ -20,7 +20,7 @@ library(tidyverse)
 ## Data  
 ```{r, include=FALSE}
 # import the data set using a relative path
-news <- read.csv('./OnlineNewsPopularity/OnlineNewsPopularity.csv')
+news <- read.csv('OnlineNewsPopularity.csv')
 
 # recast days of the week as a single variable
 news$day <- names(news)[32:38][max.col(news[32:38])]
@@ -128,7 +128,9 @@ boosted_tree <- train(shares ~ .,
                     tuneLength=10,
                     trControl=trainControl(method='repeatedcv', number=10, repeats=3)
                     )
+
 ```
+
 ```{r}
 # print out the results from our model selection
 print(boosted_tree)
@@ -143,3 +145,21 @@ postResample(boosted_pred, news_test$shares)
 A boosted tree model is an ensemble method, meaning it uses multiple learning algorithms to attempt to gain better performance than an individual model. The above model output and plot show the number of trees used in the final model and the tree depth. 
 
 This model performs better than the single tree-based model above in terms of out parameter of interest, MAE. This is likely due to a combination of the fact that the second model is using an ensemble method that fits more slowly, and the fact that singular tree-based models have a tendency to overfit their data, thus affecting the overall prediction value.
+
+```{r linear model}
+# create a linear  model using repeated cross-validation
+linear_regression <- train(shares ~ .,
+                     data=news_train,
+                     method='lm',
+                     preProcess=c("center", "scale"),
+                     metric='MAE',
+                     tuneLength=10,
+                     trControl=trainControl(method='repeatedcv', number=10, repeats=10)
+                     )
+
+linear_regression
+
+linear_pred <- predict(linear_regression, newdata=news_test)
+postResample(linear_pred, news_test$shares)
+```
+
